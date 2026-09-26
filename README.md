@@ -39,6 +39,7 @@ In collaborative workspaces, presentations, or shared-Mac environments, personal
 
 - **Instant In-Place Concealment**: Operates directly at original storage paths with zero data copying or re-encoding, eliminating storage overhead and write-interruption risks.
 - **Independent Credentials & Touch ID**: Dedicated master password paired with Touch ID, fully decoupled from the macOS login password to safeguard privacy on shared hardware.
+- **Proactive Leak Prevention & Status Bar Alerts**: Dynamic visual sentinel displays an amber badge during active use, and triggers an eye-catching **red alert** if the management window is closed while items remain unlocked and exposed in Finder.
 - **100% Local Offline Security**: Zero network permissions, zero telemetry, and zero cloud uploads. Credentials reside safely inside the hardware-backed macOS Keychain.
 - **Native Lightweight Footprint**: Engineered purely with AppKit and SwiftUI. The application package is approximately 455KB, combining a persistent menu bar panel with a dual-column management center.
 
@@ -82,8 +83,12 @@ The top toolbar dynamically switches between batch actions based on selection st
 
 ---
 
-### 5. Menu Bar Floating Panel for Rapid Workflow
-Resides in the macOS menu bar with an amber indicator for unlocked items; displays recent assets for quick in-place access without interrupting active work.
+### 5. Menu Bar Floating Panel & Active Leak Prevention
+Resides in the macOS menu bar with an intelligent visual sentinel: displays an amber indicator during active editing and transitions to an eye-catching **red alert** if the management window is closed while items remain unlocked and exposed in Finder. Clicking the status item opens a sleek floating panel to inspect recent assets or lock everything with one touch, without interrupting active work.
+
+<p align="center">
+  <img src="docs/assets/sentinel_states_en.png" width="760" alt="Status Bar Sentinel States" />
+</p>
 
 <p align="center">
   <img src="docs/screenshots/en/8.png" width="440" alt="Status Bar Floating Panel" />

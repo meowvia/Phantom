@@ -1,0 +1,24 @@
+# Swift Package Manager & Build Outputs
+.build/
+build/
+Packages/
+Package.resolved
+Package.pins
+
+# macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Release Archives (DMG 安装包由 GitHub Releases 托管分发，不进 Git 历史)
+*.dmg
+*.app/
+*.zip
+
+# Temporary & Swap Files
+*.swp
+*~
+*.lock

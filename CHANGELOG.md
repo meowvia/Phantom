@@ -16,7 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
   - 时间复杂度为 O(1)，就地修改元数据即时生效，对大体积文件夹无复制等待。
 * **生物识别与钥匙串隔离 (Touch ID & Keychain)**：
   - 支持 Touch ID 一触即开，密钥受硬件安全隔离（Secure Enclave / Keychain）保护；
-  - 100% 纯本地离线运行，零外网通信，零遥测上报，零云端存储。
+  - 纯本地离线运行，无外网通信，无遥测上报，无云端存储。
 
 #### 视觉交互与防窥策略
 * **原生 Liquid Glass 材质美学与视觉降噪**：

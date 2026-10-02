@@ -12,8 +12,8 @@
   <img src="https://img.shields.io/badge/Platform-macOS%2014.0%2B-blue?style=flat-square" alt="Platform" />
   <img src="https://img.shields.io/badge/Architecture-Apple%20Silicon-success?style=flat-square" alt="Architecture" />
   <img src="https://img.shields.io/badge/Language-Swift%206-orange?style=flat-square" alt="Language" />
-  <img src="https://img.shields.io/badge/Privacy-100%25%20Offline%20%7C%200%20Telemetry-brightgreen?style=flat-square" alt="Privacy" />
-  <img src="https://img.shields.io/badge/Package-455%20KB-purple?style=flat-square" alt="Package" />
+  <img src="https://img.shields.io/badge/Privacy-Offline%20%7C%20No%20Telemetry-brightgreen?style=flat-square" alt="Privacy" />
+  <img src="https://img.shields.io/badge/Package-Native%20DMG-purple?style=flat-square" alt="Package" />
 </p>
 
 <p align="center">
@@ -37,11 +37,11 @@
 
 ## 核心优势
 
-- **原路径极速响应**：直接在原路径实施隐藏保护，大文件无需耗时复制或转码，零额外存储开销，杜绝断电损坏风险。
-- **独立密码与生物识别**：建立专属主密码并联动 Touch ID，与 macOS 开机密码彻底隔离，设备借出无泄露之忧。
-- **主动防遗忘与状态栏警示**：集成动态视觉哨兵机制，编辑期间呈橙色提示；若在存在未锁定项目时关闭管理中心，状态栏立即转为醒目的纯红警示，杜绝遗忘泄密。
-- **100% 纯本地离线**：零网络权限、零后台遥测、零云端上传，核心凭据受系统钥匙串硬件级安全隔离。
-- **原生轻量体验**：采用纯 AppKit + SwiftUI 构建，安装包仅约 455KB，常驻菜单栏与双栏管理中心无缝协同。
+- **原路径快速响应**：直接在原路径实施隐藏保护，大文件无需耗时复制或转码，无额外存储开销，避免写入中断造成的数据损坏风险。
+- **独立密码与生物识别**：建立专属主密码并联动 Touch ID，与 macOS 开机密码独立隔离，降低设备借出时的泄露风险。
+- **主动防遗忘与状态栏警示**：集成动态视觉哨兵机制，编辑期间呈橙色提示；若在存在未锁定项目时关闭管理中心，状态栏立即转为醒目的纯红警示，提示及时重新锁定。
+- **纯本地离线运行**：无网络权限、无后台遥测、无云端上传，核心凭据受系统钥匙串硬件级安全隔离。
+- **原生轻量体验**：采用纯 AppKit + SwiftUI 构建，安装包体积轻量纯净，常驻菜单栏与双栏管理中心协同工作。
 
 ---
 
@@ -97,7 +97,7 @@
 ---
 
 ### 6. 偏好设置与专属恢复密钥
-支持中英双语即时切换与凭据重设；初次配置生成的专属「恢复密钥」是离线状态下重置密码并找回受保护资产的唯一凭据。
+支持中英双语即时切换与凭据重设；初次配置生成的专属「恢复密钥」是离线状态下重置密码并找回受保护资产的关键凭据。
 
 <p align="center">
   <img src="docs/screenshots/zh/9.png" width="720" alt="偏好设置与安全规范" />

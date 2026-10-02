@@ -12,8 +12,8 @@
   <img src="https://img.shields.io/badge/Platform-macOS%2014.0%2B-blue?style=flat-square" alt="Platform" />
   <img src="https://img.shields.io/badge/Architecture-Apple%20Silicon-success?style=flat-square" alt="Architecture" />
   <img src="https://img.shields.io/badge/Language-Swift%206-orange?style=flat-square" alt="Language" />
-  <img src="https://img.shields.io/badge/Privacy-100%25%20Offline%20%7C%200%20Telemetry-brightgreen?style=flat-square" alt="Privacy" />
-  <img src="https://img.shields.io/badge/Package-455%20KB-purple?style=flat-square" alt="Package" />
+  <img src="https://img.shields.io/badge/Privacy-Offline%20%7C%20No%20Telemetry-brightgreen?style=flat-square" alt="Privacy" />
+  <img src="https://img.shields.io/badge/Package-Native%20DMG-purple?style=flat-square" alt="Package" />
 </p>
 
 <p align="center">
@@ -37,11 +37,11 @@ In collaborative workspaces, presentations, or shared-Mac environments, personal
 
 ## Core Advantages
 
-- **Instant In-Place Concealment**: Operates directly at original storage paths with zero data copying or re-encoding, eliminating storage overhead and write-interruption risks.
-- **Independent Credentials & Touch ID**: Dedicated master password paired with Touch ID, fully decoupled from the macOS login password to safeguard privacy on shared hardware.
-- **Proactive Leak Prevention & Status Bar Alerts**: Dynamic visual sentinel displays an amber badge during active use, and triggers an eye-catching **red alert** if the management window is closed while items remain unlocked and exposed in Finder.
-- **100% Local Offline Security**: Zero network permissions, zero telemetry, and zero cloud uploads. Credentials reside safely inside the hardware-backed macOS Keychain.
-- **Native Lightweight Footprint**: Engineered purely with AppKit and SwiftUI. The application package is approximately 455KB, combining a persistent menu bar panel with a dual-column management center.
+- **Instant In-Place Concealment**: Operates directly at original storage paths without data copying or re-encoding, mitigating write-interruption and data loss risks while avoiding storage overhead.
+- **Independent Credentials & Touch ID**: Dedicated master password paired with Touch ID, decoupled from the macOS login password to reduce privacy exposure risks on shared hardware.
+- **Proactive Leak Prevention & Status Bar Alerts**: Dynamic visual sentinel displays an amber badge during active use, and triggers a conspicuous **red alert** if the management window is closed while items remain unlocked, reminding you to lock them.
+- **Local Offline Architecture**: No network permissions, no telemetry, and no cloud uploads. Credentials reside safely inside the hardware-backed macOS Keychain.
+- **Native Lightweight Footprint**: Engineered purely with AppKit and SwiftUI for a compact footprint, combining a persistent menu bar panel with a dual-column management center.
 
 ---
 
@@ -97,7 +97,7 @@ Resides in the macOS menu bar with an intelligent visual sentinel: displays an a
 ---
 
 ### 6. Preferences & Dedicated Recovery Key
-Supports instant bilingual switching and password updates. The high-entropy Recovery Key generated at setup serves as the sole credential to regain access offline.
+Supports instant bilingual switching and password updates. The high-entropy Recovery Key generated at setup serves as the primary credential to regain access offline.
 
 <p align="center">
   <img src="docs/screenshots/en/9.png" width="720" alt="Preferences & Security Spec" />

@@ -13,7 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 #### 核心能力与安全架构
 * **物理级文件隐匿 (File Concealment)**：
   - 基于 macOS Darwin 内核系统调用（`lchflags`、`chmod`、`setxattr`），隐匿后的项目在访达（Finder）与聚光灯搜索（Spotlight）中隐匿不可见，配合权限加锁阻断非法读写；
-  - 时间复杂度为 O(1) 微秒级瞬间完成，对百 GB 级超大文件夹零耗时卡顿。
+  - 时间复杂度为 O(1)，就地修改元数据即时生效，对大体积文件夹无复制等待。
 * **生物识别与钥匙串隔离 (Touch ID & Keychain)**：
   - 支持 Touch ID 一触即开，密钥受硬件安全隔离（Secure Enclave / Keychain）保护；
   - 100% 纯本地离线运行，零外网通信，零遥测上报，零云端存储。
@@ -24,7 +24,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
   - 顶部工具栏贯彻 macOS 原生留白设计，取消多余悬挂图标，右侧保持三键极简规范；
   - 偏好设置全面净空副标题小字，移除冗余商业版字样，底部仅保留纯净版本号。
 * **「安全防窥策略」双档位模式 (P8 Dual-Mode Anti-Peep & Focus)**：
-  - **极致防窥模式（默认）**：零信任失焦即关即锁。光标离开大窗口区域时，大窗口在 1 毫秒内主动优雅关闭销毁，内存解密密钥即刻抹除，杜绝开放环境下的偷窥风险；
+  - **极致防窥模式（默认）**：失焦即关即锁。光标离开大窗口区域时，大窗口主动平滑关闭，内存解密密钥即刻抹除，降低开放环境下的窥视风险；
   - **沉浸整理模式**：为多任务与跨应用拖拽设计。大窗口失去焦点时在后台保持打开，不自杀、不抹除密钥；关闭窗口时自动重新锁定会话；
   - **原生偏好设置交互**：内置 Liquid Glass 原生双档位分段切换器与 Apple HIG 标准规范指引，免激活全量开放体验。
 * **智能生物认证与焦点防误杀**：
@@ -42,7 +42,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 * **CoreAnimation 异步硬件加速**：
   - 视图开启 `drawsAsynchronously = true` 与 `allowsConcurrentViewDrawing = true`，毛玻璃材质光栅化移交专用渲染队列；
 * **数据供给 O(1) 预计算缓存**：
-  - 衍生列表响应式预计算缓存，在高刷新率屏幕上实现绝对物理丝滑。
+  - 衍生列表响应式预计算缓存，在高刷新率屏幕上保持流畅响应。
 
 #### 极致轻量工程
 * **极致包体**：全模块优化 + 符号剥离 + Apple 原生 ULMO LZMA 压缩，最终 DMG 安装包体积严格控制在 ~690 KB（远低于 1MB 上限）。

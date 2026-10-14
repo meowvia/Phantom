@@ -18,11 +18,11 @@
 
 <p align="center">
   <a href="#overview">Overview</a> •
-  <a href="#threat-model--security-boundaries">Threat Model</a> •
   <a href="#core-advantages">Advantages</a> •
-  <a href="#emergency-manual-recovery">Manual Recovery</a> •
   <a href="#feature-tour">Features</a> •
-  <a href="#verification--entitlements">Offline Verification</a> •
+  <a href="#protection-scope">Protection Scope</a> •
+  <a href="#system-requirements">Requirements</a> •
+  <a href="#quick-start">Quick Start</a> •
   <a href="README_ZH.md">简体中文</a>
 </p>
 
@@ -30,56 +30,18 @@
 
 ## Overview
 
-In collaborative workspaces, presentations, screen shares, or shared-device environments, work files, personal folders, and staging assets can easily be exposed via Finder directory views, Recent Items, Spotlight searches, or AirDrop menus. Traditional encrypted disk images can take significant time to create and carry data corruption risks on multi-gigabyte files, while relying purely on the macOS login password offers zero privacy isolation when lending a device.
+In collaborative workspaces, presentations, screen shares, or shared-device environments, work files, personal folders, and staging assets can easily be exposed via Finder directory views, Recent Items, Spotlight searches, or AirDrop menus. Traditional encrypted disk containers can take significant time to create and carry data corruption risks on multi-gigabyte files, while relying purely on the macOS login password offers zero privacy isolation when lending a device.
 
-**Phantom** provides native macOS in-place privacy protection: it conceals items instantaneously directly at their original storage paths using Darwin filesystem attributes without data duplication or format rewriting, while establishing an independent master credential to protect your workspace boundaries.
-
----
-
-## Threat Model & Security Boundaries
-
-To maintain engineering transparency, Phantom clearly defines its protection boundaries:
-
-### What Phantom Protects Against
-- **Casual Bystander Snooping**: Hides files and folders in-place so they do not appear in standard Finder directory views.
-- **Search & Recent Exposure**: Strips visibility from Spotlight indexing, Siri suggestions, and macOS Recent Items.
-- **Accidental Presentation Leakage**: Prevents inadvertent exposure during screen sharing, projector displays, or temporary device handoffs.
-- **Accidental Modification**: Applies POSIX permissions `000` and `UF_IMMUTABLE` flags to prevent accidental editing or deletion of locked items.
-
-### What Phantom Does Not Protect Against
-- **Forensic & Physical Drive Extraction**: Phantom does **not** re-encode file payloads with block ciphers. File contents remain at their original storage sectors to eliminate write-interruption and corruption risks. Block-level forensic tools can read data directly from unencrypted partitions.
-- **Same-User Terminal Execution**: Any process or terminal script running under the same user account with appropriate permissions (e.g., executing `chflags` or `chmod`) can inspect or revert item attributes.
-- **System Backups**: Standard file backups (such as Time Machine) may back up hidden files unless specifically excluded in backup settings.
-
-> For environments requiring defense against hardware seizure or hostile forensic inspection, combine Phantom with FileVault full-disk encryption.
-
----
-
-## Emergency Manual Recovery
-
-Because Phantom modifies native macOS filesystem attributes without payload alteration, your data is never locked inside a proprietary container. If the application is uninstalled, unavailable, or you need emergency manual recovery, execute the following commands in Terminal:
-
-```bash
-# 1. Clear hidden and immutable flags
-chflags -R nohidden "/path/to/target/folder_or_file"
-chflags -R nouchg "/path/to/target/folder_or_file"
-
-# 2. Restore standard POSIX permissions
-# For a folder:
-chmod -R 755 "/path/to/target/folder"
-
-# For a regular file:
-chmod 644 "/path/to/target/file"
-```
+**Phantom** provides native macOS in-place privacy protection: it conceals items instantaneously directly at their original storage paths without data duplication, while establishing an independent master credential to protect your workspace boundaries.
 
 ---
 
 ## Core Advantages
 
-- **Instant In-Place Concealment**: Operates directly at original storage paths without copying, moving, or re-encoding data, eliminating data corruption risks on large files.
+- **Instant In-Place Concealment**: Operates directly at original storage paths without copying, moving, or format re-encoding, eliminating write-interruption and data loss risks on large files.
 - **Independent Credentials & Touch ID**: Dedicated master password paired with Touch ID authentication, decoupled from the macOS login password to protect privacy on shared hardware.
 - **Proactive Leak Prevention & Visual Sentinel**: Dynamic visual sentinel in the menu bar displays an amber indicator during active editing and transitions to a conspicuous **red alert** if the management window is closed while items remain unlocked.
-- **Local Offline Architecture**: Zero network permissions, zero telemetry, and zero remote communication. Credentials reside in the macOS Keychain (`ThisDeviceOnly`).
+- **Local Offline Architecture**: Zero network permissions, zero telemetry, and zero remote communication. Master credentials reside safely in the local macOS Keychain (`ThisDeviceOnly`).
 - **Native Lightweight Footprint**: Built purely with AppKit and SwiftUI for minimal system footprint and native macOS Liquid Glass aesthetics.
 
 ---
@@ -144,28 +106,12 @@ Supports instant bilingual switching and password updates. The high-entropy Reco
 
 ---
 
-## Verification & Entitlements
+## Protection Scope
 
-Phantom operates completely offline. You can independently verify that network access is absent by inspecting the binary entitlements:
-
-```bash
-codesign -d --entitlements :- /Applications/Phantom.app
-```
-
-Entitlements definition (`Phantom.entitlements`):
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>com.apple.security.cs.allow-jit</key>
-    <false/>
-    <key>com.apple.security.personal-information.photos-library</key>
-    <false/>
-    <!-- Notice: com.apple.security.network.client and network.server are strictly omitted -->
-</dict>
-</plist>
-```
+- **Intended Scenarios**: Built for workplace privacy protection, presentation shields, screen sharing deterrence, and preventing bystander snooping on shared Macs.
+- **In-Place Architecture**: Prioritizes instantaneous response and zero data duplication overhead without modifying original file payloads.
+- **Offline Assurance**: The binary operates strictly locally with zero network capabilities (`com.apple.security.network` permissions are strictly omitted).
+- **Comprehensive Defense**: For high-threat environments requiring defense against physical hardware seizure or forensic analysis, users should combine Phantom with macOS FileVault full-disk encryption.
 
 ---
 

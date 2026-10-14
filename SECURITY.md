@@ -17,11 +17,11 @@ Phantom is designed as a native macOS in-place privacy guard and anti-snooping u
 - **Casual Bystander Snooping**: Hides files and folders in-place so they do not appear in Finder directory views.
 - **System Search & Index Leakage**: Strips metadata visibility from Spotlight searches, Siri suggestions, and Recent Items.
 - **Accidental Exposure**: Prevents inadvertent sharing via AirDrop discovery lists, screen sharing, presentation sessions, or temporary Mac lending.
-- **Inadvertent File Alteration**: Sets POSIX permissions to `000` and activates `UF_IMMUTABLE` flags on locked items to block accidental modification or deletion.
+- **Inadvertent File Alteration**: Applies system-level permission locking on protected items to prevent accidental modification or deletion while locked.
 
 ### What Phantom Does Not Protect Against (Out-of-Scope)
-- **Cryptographic File Payload Encryption**: Phantom does not rewrite or re-encode file contents with block ciphers. File data remains at original physical disk blocks to avoid write-interruption and data loss risks on multi-gigabyte files.
-- **Same-User Process or Terminal Access**: Any process or terminal session running under the same macOS user account with appropriate permissions (e.g., executing `chflags` or `chmod`) can read the underlying files.
+- **Cryptographic File Payload Encryption**: Phantom does not rewrite or re-encode file contents with block ciphers. File data remains at original storage blocks to eliminate write-interruption and data loss risks on large files.
+- **Same-User Process or Terminal Access**: Any process or terminal session running with administrative privileges under the same macOS user account can inspect local filesystem attributes.
 - **Digital Forensics & Raw Disk Access**: Physical extraction of storage media or forensic block-level inspection tools can read raw file blocks directly from unencrypted partitions.
 - **Backup Duplication**: Standard file-based backups (such as Time Machine) may archive hidden files if configured to traverse all user paths.
 

@@ -1,0 +1,35 @@
+Software License Agreement (Proprietary / Closed Source)
+
+Phantom - Native macOS Privacy Guard
+Copyright (c) 2026 Phantom Team. All rights reserved.
+
+IMPORTANT: PLEASE READ THIS SOFTWARE LICENSE AGREEMENT CAREFULLY BEFORE DOWNLOADING, INSTALLING, OR USING PHANTOM.
+
+1. Grant of License
+Subject to the terms and conditions of this Agreement, Phantom Team grants you a non-exclusive, non-transferable, revocable license to download, install, and use Phantom ("the Software") on Apple-branded computers running compatible macOS versions for personal or internal organizational privacy management.
+
+2. Intellectual Property and Restrictions
+The Software, including its source code, design, logos, documentation, and user interfaces, is the exclusive intellectual property of Phantom Team and is protected by copyright and international intellectual property treaties.
+You may not:
+(a) Reverse engineer, decompile, disassemble, or attempt to derive the source code of the Software;
+(b) Modify, adapt, translate, or create derivative works based upon the Software;
+(c) Rent, lease, lend, sell, sublicense, distribute, or commercially host the Software without prior express written permission;
+(d) Remove, alter, or obscure any proprietary notices, labels, or marks on the Software.
+
+3. Privacy and Local-Only Execution
+The Software operates strictly locally on your macOS device. It does not contain network transmission capabilities, telemetry routines, or remote analytics. All cryptographic credentials and file state indices are stored exclusively on your local device.
+
+4. Scope of Operation and User Responsibility
+The Software provides in-place filesystem attribute and permission-based concealment designed to prevent casual inspection, inadvertent screen exposures, and search indexing. It does not perform destructive disk re-encoding or encryption containers. You acknowledge that:
+(a) You are responsible for preserving your master password and offline Recovery Key;
+(b) You should ensure backups of critical data before applying filesystem attribute modifications;
+(c) The Software should not be used as a substitute for certified military or forensic-grade storage encryption.
+
+5. Disclaimer of Warranties
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE", WITH ALL FAULTS AND WITHOUT WARRANTY OF ANY KIND. PHANTOM TEAM EXPRESSLY DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+6. Limitation of Liability
+IN NO EVENT SHALL PHANTOM TEAM BE LIABLE FOR ANY INCIDENTAL, SPECIAL, INDIRECT, OR CONSEQUENTIAL DAMAGES WHATSOEVER, INCLUDING WITHOUT LIMITATION DAMAGES FOR LOSS OF PROFITS, LOSS OF DATA, BUSINESS INTERRUPTION, OR ANY OTHER COMMERCIAL DAMAGES OR LOSSES ARISING OUT OF OR RELATED TO YOUR USE OR INABILITY TO USE THE SOFTWARE.
+
+7. Termination
+This Agreement is effective until terminated. Your rights under this Agreement will terminate automatically without notice if you fail to comply with any of its terms. Upon termination, you must cease all use of the Software and delete all copies in your possession.

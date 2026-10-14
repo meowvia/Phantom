@@ -5,23 +5,24 @@
 <h1 align="center">Phantom</h1>
 
 <p align="center">
-  <strong>Native macOS In-Place File Concealment & Independent Credential Protection</strong>
+  <strong>Native macOS In-Place File Concealment & Privacy Guard</strong>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-macOS%2014.0%2B-blue?style=flat-square" alt="Platform" />
   <img src="https://img.shields.io/badge/Architecture-Apple%20Silicon-success?style=flat-square" alt="Architecture" />
   <img src="https://img.shields.io/badge/Language-Swift%206-orange?style=flat-square" alt="Language" />
-  <img src="https://img.shields.io/badge/Privacy-Offline%20%7C%20No%20Telemetry-brightgreen?style=flat-square" alt="Privacy" />
-  <img src="https://img.shields.io/badge/Package-Native%20DMG-purple?style=flat-square" alt="Package" />
+  <img src="https://img.shields.io/badge/Privacy-100%25%20Offline%20%7C%20No%20Telemetry-brightgreen?style=flat-square" alt="Privacy" />
+  <img src="https://img.shields.io/badge/License-Proprietary-lightgrey?style=flat-square" alt="License" />
 </p>
 
 <p align="center">
   <a href="#overview">Overview</a> •
+  <a href="#threat-model--security-boundaries">Threat Model</a> •
   <a href="#core-advantages">Advantages</a> •
+  <a href="#emergency-manual-recovery">Manual Recovery</a> •
   <a href="#feature-tour">Features</a> •
-  <a href="#system-requirements">Requirements</a> •
-  <a href="#quick-start">Quick Start</a> •
+  <a href="#verification--entitlements">Offline Verification</a> •
   <a href="README_ZH.md">简体中文</a>
 </p>
 
@@ -29,26 +30,64 @@
 
 ## Overview
 
-In collaborative workspaces, presentations, or shared-Mac environments, personal documents, private photos, and sensitive project assets can easily be exposed via Finder searches, recent files, Spotlight, or AirDrop. Traditional container images take significant time and risk data corruption on large files, while relying on the system unlock password offers zero real privacy isolation.
+In collaborative workspaces, presentations, screen shares, or shared-device environments, work files, personal folders, and staging assets can easily be exposed via Finder directory views, Recent Items, Spotlight searches, or AirDrop menus. Traditional encrypted disk images can take significant time to create and carry data corruption risks on multi-gigabyte files, while relying purely on the macOS login password offers zero privacy isolation when lending a device.
 
-**Phantom** is purpose-built for macOS: it conceals items instantaneously in-place using native filesystem attributes without data duplication, while establishing a dedicated master credential independent of the macOS login password to protect your digital boundaries.
+**Phantom** provides native macOS in-place privacy protection: it conceals items instantaneously directly at their original storage paths using Darwin filesystem attributes without data duplication or format rewriting, while establishing an independent master credential to protect your workspace boundaries.
+
+---
+
+## Threat Model & Security Boundaries
+
+To maintain engineering transparency, Phantom clearly defines its protection boundaries:
+
+### What Phantom Protects Against
+- **Casual Bystander Snooping**: Hides files and folders in-place so they do not appear in standard Finder directory views.
+- **Search & Recent Exposure**: Strips visibility from Spotlight indexing, Siri suggestions, and macOS Recent Items.
+- **Accidental Presentation Leakage**: Prevents inadvertent exposure during screen sharing, projector displays, or temporary device handoffs.
+- **Accidental Modification**: Applies POSIX permissions `000` and `UF_IMMUTABLE` flags to prevent accidental editing or deletion of locked items.
+
+### What Phantom Does Not Protect Against
+- **Forensic & Physical Drive Extraction**: Phantom does **not** re-encode file payloads with block ciphers. File contents remain at their original storage sectors to eliminate write-interruption and corruption risks. Block-level forensic tools can read data directly from unencrypted partitions.
+- **Same-User Terminal Execution**: Any process or terminal script running under the same user account with appropriate permissions (e.g., executing `chflags` or `chmod`) can inspect or revert item attributes.
+- **System Backups**: Standard file backups (such as Time Machine) may back up hidden files unless specifically excluded in backup settings.
+
+> For environments requiring defense against hardware seizure or hostile forensic inspection, combine Phantom with FileVault full-disk encryption.
+
+---
+
+## Emergency Manual Recovery
+
+Because Phantom modifies native macOS filesystem attributes without payload alteration, your data is never locked inside a proprietary container. If the application is uninstalled, unavailable, or you need emergency manual recovery, execute the following commands in Terminal:
+
+```bash
+# 1. Clear hidden and immutable flags
+chflags -R nohidden "/path/to/target/folder_or_file"
+chflags -R nouchg "/path/to/target/folder_or_file"
+
+# 2. Restore standard POSIX permissions
+# For a folder:
+chmod -R 755 "/path/to/target/folder"
+
+# For a regular file:
+chmod 644 "/path/to/target/file"
+```
 
 ---
 
 ## Core Advantages
 
-- **Instant In-Place Concealment**: Operates directly at original storage paths without data copying or re-encoding, mitigating write-interruption and data loss risks while avoiding storage overhead.
-- **Independent Credentials & Touch ID**: Dedicated master password paired with Touch ID, decoupled from the macOS login password to reduce privacy exposure risks on shared hardware.
-- **Proactive Leak Prevention & Status Bar Alerts**: Dynamic visual sentinel displays an amber badge during active use, and triggers a conspicuous **red alert** if the management window is closed while items remain unlocked, reminding you to lock them.
-- **Local Offline Architecture**: No network permissions, no telemetry, and no cloud uploads. Credentials reside safely inside the hardware-backed macOS Keychain.
-- **Native Lightweight Footprint**: Engineered purely with AppKit and SwiftUI for a compact footprint, combining a persistent menu bar panel with a dual-column management center.
+- **Instant In-Place Concealment**: Operates directly at original storage paths without copying, moving, or re-encoding data, eliminating data corruption risks on large files.
+- **Independent Credentials & Touch ID**: Dedicated master password paired with Touch ID authentication, decoupled from the macOS login password to protect privacy on shared hardware.
+- **Proactive Leak Prevention & Visual Sentinel**: Dynamic visual sentinel in the menu bar displays an amber indicator during active editing and transitions to a conspicuous **red alert** if the management window is closed while items remain unlocked.
+- **Local Offline Architecture**: Zero network permissions, zero telemetry, and zero remote communication. Credentials reside in the macOS Keychain (`ThisDeviceOnly`).
+- **Native Lightweight Footprint**: Built purely with AppKit and SwiftUI for minimal system footprint and native macOS Liquid Glass aesthetics.
 
 ---
 
 ## Feature Tour
 
 ### 1. Independent Credentials & Biometric Unlock
-Enforces a master password separate from system login, integrated with Touch ID for single-touch unlock and progressive brute-force rate limiting.
+Enforces a master password separate from system login, integrated with Touch ID for quick unlock.
 
 | Figure 1: Master Password Setup | Figure 2: Lock Screen & Touch ID |
 | :---: | :---: |
@@ -66,7 +105,7 @@ Presents essential operational rules before first use: clarifies local-only beha
 ---
 
 ### 3. Structured Dual-Column Management Center
-Translucent Liquid Glass interface partitioning folders and files into equal columns; features instant search filtering and direct Finder drag-and-drop ingestion.
+Liquid Glass interface partitioning folders and files into equal columns; features instant search filtering and direct Finder drag-and-drop ingestion.
 
 | Figure 4: Empty Initial State | Figure 5: Populated Asset Index |
 | :---: | :---: |
@@ -84,7 +123,7 @@ The top toolbar dynamically switches between batch actions based on selection st
 ---
 
 ### 5. Menu Bar Floating Panel & Active Leak Prevention
-Resides in the macOS menu bar with an intelligent visual sentinel: displays an amber indicator during active editing and transitions to an eye-catching **red alert** if the management window is closed while items remain unlocked and exposed in Finder. Clicking the status item opens a sleek floating panel to inspect recent assets or lock everything with one touch, without interrupting active work.
+Resides in the macOS menu bar with an intelligent visual sentinel: displays an amber indicator during active editing and transitions to an eye-catching **red alert** if the management window is closed while items remain unlocked and exposed in Finder.
 
 <p align="center">
   <img src="docs/assets/sentinel_states_en.png" width="760" alt="Status Bar Sentinel States" />
@@ -105,6 +144,31 @@ Supports instant bilingual switching and password updates. The high-entropy Reco
 
 ---
 
+## Verification & Entitlements
+
+Phantom operates completely offline. You can independently verify that network access is absent by inspecting the binary entitlements:
+
+```bash
+codesign -d --entitlements :- /Applications/Phantom.app
+```
+
+Entitlements definition (`Phantom.entitlements`):
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.cs.allow-jit</key>
+    <false/>
+    <key>com.apple.security.personal-information.photos-library</key>
+    <false/>
+    <!-- Notice: com.apple.security.network.client and network.server are strictly omitted -->
+</dict>
+</plist>
+```
+
+---
+
 ## System Requirements
 
 - **Operating System**: macOS 14.0 (Sonoma) or later
@@ -122,7 +186,9 @@ Supports instant bilingual switching and password updates. The high-entropy Reco
 
 ---
 
-## Licensing & Copyright
+## Licensing & Governance
 
 - **Copyright © 2026 Phantom Team. All rights reserved.**
-- Commercial proprietary software protected by intellectual property laws. Unauthorized reverse engineering, modification, or redistribution is strictly prohibited.
+- Subject to the terms of the proprietary [LICENSE](LICENSE).
+- Security policy and vulnerability reporting: [SECURITY.md](SECURITY.md).
+- Privacy policy and offline commitments: [PRIVACY.md](PRIVACY.md).
